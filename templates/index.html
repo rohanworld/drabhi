@@ -201,12 +201,19 @@
             const result = await model.generateContent(prompt);
             const response = await result.response;
             const text = response.text();
+            speakBro(text);
             console.log(text);
             
             // Display AI response
             aiLoadingDiv.innerHTML = '<div class="ai-response"><strong>AI:</strong> ' + text + '</div>';
             
             chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+        function speakBro(prompt) {
+            let utterance = new SpeechSynthesisUtterance();
+            utterance.text = prompt;
+            utterance.voice = window.speechSynthesis.getVoices()[0];
+            window.speechSynthesis.speak(utterance);
         }
     </script>
 
